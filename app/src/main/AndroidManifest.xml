@@ -22,5 +22,4 @@
         </activity>
         <service android:name="MainService" />
     </application>
-    <service android:name="MainService" />
 </manifest>

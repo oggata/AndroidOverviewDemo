@@ -17,7 +17,7 @@ import android.view.WindowManager;
 public final class MainService extends Service {
 
     private WindowManager windowManager;
-    private OverlayView overlayView;
+    public OverlayView overlayView;
     private OverlayView.Listener overlayListener = new OverlayView.Listener() {
         @Override public void onCancel() {
             //cancelRecording();
@@ -33,7 +33,7 @@ public final class MainService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d("service", "onCreate");
+        //Log.d("service", "onCreate");
         windowManager = (WindowManager) this.getSystemService(WINDOW_SERVICE);
         overlayView = OverlayView.create(this,overlayListener);
         windowManager.addView(overlayView, OverlayView.createLayoutParams(this));
@@ -41,14 +41,17 @@ public final class MainService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d("service", "onStartCommand");
+        //Log.d("service", "onStartCommand");
         return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
     public void onDestroy() {
-        Log.d("service", "onDestroy");
+        //Log.d("service", "onDestroy");
         super.onDestroy();
+        //remove
+        windowManager.removeView(overlayView);
+        overlayView.cancelComment();
     }
 
     @Override public IBinder onBind(@NonNull Intent intent) {
